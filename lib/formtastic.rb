@@ -121,7 +121,11 @@ module Formtastic #:nodoc:
         send(:"inline_#{type}_for", method, options)
       end.compact.join("\n")
 
-      return template.content_tag(:li, Formtastic::Util.html_safe(list_item_content), wrapper_html)
+      unless options[:skip_li] or not wrapper_html
+        return template.content_tag(:li, Formtastic::Util.html_safe(list_item_content), wrapper_html)
+      else
+        return Formtastic::Util.html_safe(list_item_content)
+      end
     end
 
     # Creates an input fieldset and ol tag wrapping for use around a set of inputs.  It can be
